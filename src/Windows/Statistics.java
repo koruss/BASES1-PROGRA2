@@ -5,6 +5,7 @@
  */
 package Windows;
 
+import Business.Person;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import org.jfree.chart.ChartFactory;
@@ -27,10 +28,25 @@ public class Statistics extends javax.swing.JFrame {
     /**
      * Creates new form Statistics
      */
-    public Statistics() {
+    public Statistics(Person person) {
         initComponents();
+        setPerson(person);
     }
 
+    private Statistics() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    private Person person; 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,6 +65,13 @@ public class Statistics extends javax.swing.JFrame {
         jComboBox5 = new javax.swing.JComboBox<>();
         jTextField10 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        btnEstadisticas = new javax.swing.JLabel();
+        btnNuevoEvento = new javax.swing.JLabel();
+        btnConfig = new javax.swing.JLabel();
+        btnHome = new javax.swing.JLabel();
+        btnConsultas = new javax.swing.JLabel();
+        btnCalificar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -118,6 +141,66 @@ public class Statistics extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 670, 600));
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setPreferredSize(new java.awt.Dimension(130, 600));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnEstadisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/combo_chart_64px.png"))); // NOI18N
+        btnEstadisticas.setToolTipText("Estadisticas");
+        btnEstadisticas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEstadisticasMouseClicked(evt);
+            }
+        });
+        jPanel4.add(btnEstadisticas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
+
+        btnNuevoEvento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/new_64px.png"))); // NOI18N
+        btnNuevoEvento.setToolTipText("Nuevo");
+        btnNuevoEvento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNuevoEventoMouseClicked(evt);
+            }
+        });
+        jPanel4.add(btnNuevoEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+
+        btnConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/settings_3_64px.png"))); // NOI18N
+        btnConfig.setToolTipText("Configuración");
+        btnConfig.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConfigMouseClicked(evt);
+            }
+        });
+        jPanel4.add(btnConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
+
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/home_64px.png"))); // NOI18N
+        btnHome.setToolTipText("Inicio");
+        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHomeMouseClicked(evt);
+            }
+        });
+        jPanel4.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+
+        btnConsultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/question_shield_64px.png"))); // NOI18N
+        btnConsultas.setToolTipText("Consultas");
+        btnConsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsultasMouseClicked(evt);
+            }
+        });
+        jPanel4.add(btnConsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
+
+        btnCalificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/rating_64px.png"))); // NOI18N
+        btnCalificar.setToolTipText("Calificar Eventos");
+        btnCalificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCalificarMouseClicked(evt);
+            }
+        });
+        jPanel4.add(btnCalificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 600));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -128,6 +211,40 @@ public class Statistics extends javax.swing.JFrame {
     private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField10ActionPerformed
+
+    private void btnEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEstadisticasMouseClicked
+        this.dispose();
+        Statistics ventana = new Statistics(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnEstadisticasMouseClicked
+
+    private void btnNuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoEventoMouseClicked
+        this.dispose();
+        NuevoEvento ventana = new NuevoEvento(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnNuevoEventoMouseClicked
+
+    private void btnConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConfigMouseClicked
+
+    private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
+        this.dispose();
+        EventViewer ventana = new EventViewer(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnHomeMouseClicked
+
+    private void btnConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultasMouseClicked
+        this.dispose();
+        Consultas ventana = new Consultas(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnConsultasMouseClicked
+
+    private void btnCalificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalificarMouseClicked
+        this.dispose();
+        CountingStars ventana = new CountingStars(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnCalificarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -193,6 +310,12 @@ public class Statistics extends javax.swing.JFrame {
      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnCalificar;
+    private javax.swing.JLabel btnConfig;
+    private javax.swing.JLabel btnConsultas;
+    private javax.swing.JLabel btnEstadisticas;
+    private javax.swing.JLabel btnHome;
+    private javax.swing.JLabel btnNuevoEvento;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JComboBox<String> jComboBox5;
@@ -200,6 +323,7 @@ public class Statistics extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField jTextField10;
     private javax.swing.JPanel panelGrafica;
     // End of variables declaration//GEN-END:variables

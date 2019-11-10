@@ -5,6 +5,8 @@
  */
 package Windows;
 
+import Business.Person;
+
 /**
  *
  * @author kcorr
@@ -14,9 +16,23 @@ public class Configuracion extends javax.swing.JFrame {
     /**
      * Creates new form Configuracion
      */
-    public Configuracion() {
+    public Configuracion(Person person) {
+        setPerson(person);
         initComponents();
     }
+
+    public Configuracion() {
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+    
+    private Person person;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,21 +43,113 @@ public class Configuracion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jPanel3 = new javax.swing.JPanel();
+        btnEstadisticas = new javax.swing.JLabel();
+        btnNuevoEvento = new javax.swing.JLabel();
+        btnConfig = new javax.swing.JLabel();
+        btnHome = new javax.swing.JLabel();
+        btnConsultas = new javax.swing.JLabel();
+        btnCalificar = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setPreferredSize(new java.awt.Dimension(130, 600));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnEstadisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/combo_chart_64px.png"))); // NOI18N
+        btnEstadisticas.setToolTipText("Estadisticas");
+        btnEstadisticas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEstadisticasMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnEstadisticas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
+
+        btnNuevoEvento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/new_64px.png"))); // NOI18N
+        btnNuevoEvento.setToolTipText("Nuevo");
+        btnNuevoEvento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNuevoEventoMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnNuevoEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+
+        btnConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/settings_3_64px.png"))); // NOI18N
+        btnConfig.setToolTipText("Configuración");
+        btnConfig.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConfigMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
+
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/home_64px.png"))); // NOI18N
+        btnHome.setToolTipText("Inicio");
+        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHomeMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+
+        btnConsultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/question_shield_64px.png"))); // NOI18N
+        btnConsultas.setToolTipText("Consultas");
+        btnConsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsultasMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnConsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
+
+        btnCalificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/rating_64px.png"))); // NOI18N
+        btnCalificar.setToolTipText("Calificar Eventos");
+        btnCalificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCalificarMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnCalificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEstadisticasMouseClicked
+        this.dispose();
+        Statistics ventana = new Statistics(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnEstadisticasMouseClicked
+
+    private void btnNuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoEventoMouseClicked
+        this.dispose();
+        NuevoEvento ventana = new NuevoEvento(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnNuevoEventoMouseClicked
+
+    private void btnConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConfigMouseClicked
+
+    private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
+        this.dispose();
+        EventViewer ventana = new EventViewer(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnHomeMouseClicked
+
+    private void btnConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultasMouseClicked
+        this.dispose();
+        Consultas ventana = new Consultas(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnConsultasMouseClicked
+
+    private void btnCalificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalificarMouseClicked
+        this.dispose();
+        CountingStars ventana = new CountingStars(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnCalificarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -79,5 +187,12 @@ public class Configuracion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnCalificar;
+    private javax.swing.JLabel btnConfig;
+    private javax.swing.JLabel btnConsultas;
+    private javax.swing.JLabel btnEstadisticas;
+    private javax.swing.JLabel btnHome;
+    private javax.swing.JLabel btnNuevoEvento;
+    private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

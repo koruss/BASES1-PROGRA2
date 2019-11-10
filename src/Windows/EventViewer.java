@@ -5,6 +5,8 @@
  */
 package Windows;
 
+import Business.Person;
+
 /**
  *
  * @author kcorr
@@ -14,8 +16,34 @@ public class EventViewer extends javax.swing.JFrame {
     /**
      * Creates new form EventViewer
      */
-    public EventViewer() {
+    public EventViewer(Person person ) {
         initComponents();
+        this.person=person;
+        cargarEventos();
+    }
+    
+    private Person person;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    EventViewer() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    public void cargarEventos(){
+        for(int contador=0;contador<1000;contador+=160){
+            
+            Event evento = new Event();
+            panelEventos.add(evento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, contador, -1, -1));
+            pack();
+        }
+        pack();
+        
     }
 
     /**
@@ -29,7 +57,15 @@ public class EventViewer extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        scroll = new javax.swing.JScrollPane();
+        panelEventos = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        btnEstadisticas = new javax.swing.JLabel();
+        btnNuevoEvento = new javax.swing.JLabel();
+        btnConfig = new javax.swing.JLabel();
+        btnHome = new javax.swing.JLabel();
+        btnConsultas = new javax.swing.JLabel();
+        btnCalificar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -37,29 +73,124 @@ public class EventViewer extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(40, 40, 40));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Evento");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+        jLabel2.setText("EVENTOS PÚBLICOS");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
-        );
+        panelEventos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        scroll.setViewportView(panelEventos);
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 620, 410));
+        jPanel1.add(scroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 670, 460));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 670, 600));
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setPreferredSize(new java.awt.Dimension(130, 600));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnEstadisticas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/combo_chart_64px.png"))); // NOI18N
+        btnEstadisticas.setToolTipText("Estadisticas");
+        btnEstadisticas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEstadisticasMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnEstadisticas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
+
+        btnNuevoEvento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/new_64px.png"))); // NOI18N
+        btnNuevoEvento.setToolTipText("Nuevo");
+        btnNuevoEvento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnNuevoEventoMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnNuevoEvento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+
+        btnConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/settings_3_64px.png"))); // NOI18N
+        btnConfig.setToolTipText("Configuración");
+        btnConfig.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConfigMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnConfig, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
+
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/home_64px.png"))); // NOI18N
+        btnHome.setToolTipText("Inicio");
+        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHomeMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+
+        btnConsultas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/question_shield_64px.png"))); // NOI18N
+        btnConsultas.setToolTipText("Consultas");
+        btnConsultas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnConsultasMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnConsultas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
+
+        btnCalificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/rating_64px.png"))); // NOI18N
+        btnCalificar.setToolTipText("Calificar Eventos");
+        btnCalificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCalificarMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btnCalificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEstadisticasMouseClicked
+        this.dispose();
+        Statistics ventana = new Statistics(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnEstadisticasMouseClicked
+
+    private void btnNuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoEventoMouseClicked
+        this.dispose();
+        NuevoEvento ventana = new NuevoEvento(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnNuevoEventoMouseClicked
+
+    private void btnConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConfigMouseClicked
+
+    private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
+        this.dispose();
+        EventViewer ventana = new EventViewer(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnHomeMouseClicked
+
+    private void btnConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultasMouseClicked
+        this.dispose();
+        Consultas ventana = new Consultas(getPerson());
+        ventana.setVisible(true);
+
+    }//GEN-LAST:event_btnConsultasMouseClicked
+
+    private void btnCalificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalificarMouseClicked
+        this.dispose();
+        CountingStars ventana = new CountingStars(getPerson());
+        ventana.setVisible(true);
+
+    }//GEN-LAST:event_btnCalificarMouseClicked
+    
+    private void infoEventoMouseClicked(java.awt.event.MouseEvent evt){
+        this.dispose();
+        
+    
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -96,8 +227,16 @@ public class EventViewer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel btnCalificar;
+    private javax.swing.JLabel btnConfig;
+    private javax.swing.JLabel btnConsultas;
+    private javax.swing.JLabel btnEstadisticas;
+    private javax.swing.JLabel btnHome;
+    private javax.swing.JLabel btnNuevoEvento;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel panelEventos;
+    private javax.swing.JScrollPane scroll;
     // End of variables declaration//GEN-END:variables
 }
