@@ -36,7 +36,7 @@ public class Comentario extends javax.swing.JPanel {
 
         txtHora.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         txtHora.setText("Nombre");
-        add(txtHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 80, 20));
+        add(txtHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 80, 20));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);

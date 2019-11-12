@@ -5,6 +5,9 @@
  */
 package Windows;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 /**
  *
  * @author Kenneth
@@ -16,6 +19,24 @@ public class Registro extends javax.swing.JFrame {
      */
     public Registro() {
         initComponents();
+                txtTelefono.addKeyListener(new KeyAdapter()
+        {
+        public void keyTyped(KeyEvent e)
+            {
+            char caracter = e.getKeyChar();
+
+            // Verificar si la tecla pulsada no es un digito
+            if(((caracter < '0') ||
+                (caracter > '9')) &&
+                (caracter != '\b' /*corresponde a BACK_SPACE*/))
+            {
+            e.consume();  // ignorar el evento de teclado
+            }
+            }
+        });
+        
+        
+        
     }
 
     /**
@@ -29,18 +50,18 @@ public class Registro extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField9 = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField10 = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        txt2Apellido = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        txtUser = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField15 = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
@@ -52,7 +73,7 @@ public class Registro extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtPassw = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
 
@@ -75,25 +96,30 @@ public class Registro extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(40, 40, 40));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField9.setBackground(new java.awt.Color(40, 40, 40));
-        jTextField9.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jTextField9.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        txtName.setBackground(new java.awt.Color(40, 40, 40));
+        txtName.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                txtNameActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 180, 40));
+        txtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNameKeyPressed(evt);
+            }
+        });
+        jPanel2.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 180, 40));
 
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nombre");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
-        jTextField10.setBackground(new java.awt.Color(40, 40, 40));
-        jTextField10.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jTextField10.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 180, 40));
+        txtApellido.setBackground(new java.awt.Color(40, 40, 40));
+        txtApellido.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jPanel2.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 180, 40));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
@@ -101,35 +127,35 @@ public class Registro extends javax.swing.JFrame {
         jLabel2.setText("Apellido");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
 
-        jTextField11.setBackground(new java.awt.Color(40, 40, 40));
-        jTextField11.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jTextField11.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jTextField11.addActionListener(new java.awt.event.ActionListener() {
+        txt2Apellido.setBackground(new java.awt.Color(40, 40, 40));
+        txt2Apellido.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txt2Apellido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        txt2Apellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField11ActionPerformed(evt);
+                txt2ApellidoActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 180, 40));
+        jPanel2.add(txt2Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 180, 40));
 
         jLabel3.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Segundo Apellido");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
 
-        jTextField12.setBackground(new java.awt.Color(40, 40, 40));
-        jTextField12.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jTextField12.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 180, 40));
+        txtCorreo.setBackground(new java.awt.Color(40, 40, 40));
+        txtCorreo.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtCorreo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jPanel2.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 180, 40));
 
         jLabel4.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Comunidad donde Vives");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 400, -1, -1));
 
-        jTextField13.setBackground(new java.awt.Color(40, 40, 40));
-        jTextField13.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jTextField13.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(jTextField13, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 180, 40));
+        txtUser.setBackground(new java.awt.Color(40, 40, 40));
+        txtUser.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtUser.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jPanel2.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 180, 40));
 
         jLabel5.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -141,10 +167,10 @@ public class Registro extends javax.swing.JFrame {
         jLabel6.setText("Fecha de Nacimiento");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 400, -1, -1));
 
-        jTextField15.setBackground(new java.awt.Color(40, 40, 40));
-        jTextField15.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jTextField15.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(jTextField15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 180, 40));
+        txtTelefono.setBackground(new java.awt.Color(40, 40, 40));
+        txtTelefono.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jPanel2.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 180, 40));
 
         jLabel7.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -207,10 +233,10 @@ public class Registro extends javax.swing.JFrame {
         jLabel12.setText("Canton donde Vives");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 330, -1, -1));
 
-        jPasswordField1.setBackground(new java.awt.Color(40, 40, 40));
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, 180, 40));
+        txtPassw.setBackground(new java.awt.Color(40, 40, 40));
+        txtPassw.setText("jPasswordField1");
+        txtPassw.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jPanel2.add(txtPassw, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, 180, 40));
 
         jButton1.setBackground(new java.awt.Color(40, 40, 40));
         jButton1.setText("Registrar");
@@ -230,17 +256,21 @@ public class Registro extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+    private void txt2ApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt2ApellidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField11ActionPerformed
+    }//GEN-LAST:event_txt2ApellidoActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+    }//GEN-LAST:event_txtNameActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameKeyPressed
 
     /**
      * @param args the command line arguments
@@ -299,12 +329,12 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField txt2Apellido;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtName;
+    private javax.swing.JPasswordField txtPassw;
+    private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

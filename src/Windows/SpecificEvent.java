@@ -5,6 +5,7 @@
  */
 package Windows;
 
+import Business.EventData;
 import Business.Person;
 
 /**
@@ -16,9 +17,21 @@ public class SpecificEvent extends javax.swing.JFrame {
     /**
      * Creates new form SpecificEvent
      */
-    public SpecificEvent(Person person) {
+    public SpecificEvent(Person person,EventData event) {
+        setPerson(person);
+        setEvent(event);
         initComponents();
     }
+
+    public EventData getEvent() {
+        return eventData;
+    }
+
+    public void setEvent(EventData event) {
+        this.eventData = event;
+    }
+    
+    private EventData eventData;
     
     private Person person;
 
@@ -32,6 +45,14 @@ public class SpecificEvent extends javax.swing.JFrame {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+    
+    public void cargarComentarios(){
+        for(int i =0; i <1000; i+=100){
+            Comentario comentario= new Comentario();
+            panelComentarios.add(comentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, i, -1, -1));
+            pack();
+        }  
     }
 
     /**
@@ -53,7 +74,9 @@ public class SpecificEvent extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        scrollPanel = new javax.swing.JScrollPane();
+        panelComentarios = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -82,7 +105,7 @@ public class SpecificEvent extends javax.swing.JFrame {
         eventTitle.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         eventTitle.setForeground(new java.awt.Color(255, 255, 255));
         eventTitle.setText("Nombre del Evento");
-        jPanel1.add(eventTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 360, -1));
+        jPanel1.add(eventTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 360, -1));
 
         jLabel4.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -112,9 +135,15 @@ public class SpecificEvent extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 590, 90));
 
-        jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 580, 250));
+        scrollPanel.setBackground(new java.awt.Color(255, 255, 255));
+        scrollPanel.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+
+        panelComentarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        panelComentarios.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 5, -1, -1));
+
+        scrollPanel.setViewportView(panelComentarios);
+
+        jPanel1.add(scrollPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 580, 250));
 
         jButton1.setText("Comentar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -283,8 +312,10 @@ public class SpecificEvent extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JPanel panelComentarios;
+    private javax.swing.JScrollPane scrollPanel;
     // End of variables declaration//GEN-END:variables
 }

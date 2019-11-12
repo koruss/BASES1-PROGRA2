@@ -5,6 +5,7 @@
  */
 package Windows;
 
+import Business.EventData;
 import Business.Person;
 
 /**
@@ -32,14 +33,28 @@ public class EventViewer extends javax.swing.JFrame {
         this.person = person;
     }
 
+    public EventData getEventData() {
+        return eventData;
+    }
+
+    public void setEventData(EventData event) {
+        this.eventData = event;
+    }
+    private EventData eventData;
+    
+
     EventViewer() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     public void cargarEventos(){
         for(int contador=0;contador<1000;contador+=160){
-            
-            Event evento = new Event();
-            panelEventos.add(evento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, contador, -1, -1));
+            EventData eventData = new EventData();
+            setEventData(eventData);
+           // aqui se modifican los datos con los de la base de datos para cargar los eventos
+           
+           Event event = new Event(getPerson(),eventData);//el panel del evento
+           
+            panelEventos.add(event, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, contador, -1, -1));
             pack();
         }
         pack();
@@ -185,9 +200,11 @@ public class EventViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCalificarMouseClicked
     
     private void infoEventoMouseClicked(java.awt.event.MouseEvent evt){
-        this.dispose();
-        
-    
+        //this.dispose();
+        System.out.println("Izi");
+        //SpecificEvent ventana = new SpecificEvent(getPerson(), getEventData());
+        //ventana.setVisible(true);
+ 
     }
     
     

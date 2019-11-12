@@ -5,6 +5,9 @@
  */
 package Windows;
 
+import Business.EventData;
+import Business.Person;
+
 /**
  *
  * @author kcorr
@@ -12,11 +15,41 @@ package Windows;
 public class Event extends javax.swing.JPanel {
 
     /**
-     * Creates new form Event
+     * Creates new form EventData
      */
-    public Event() {
+    public Event(Person person,EventData event,int type) {
         initComponents();
+        setEvent(event);
+        this.type=type;
     }
+   public Event(Person person,EventData event) {
+        initComponents();
+        setEvent(event);
+    }
+    public int type;
+    
+    
+    
+    public EventData getEventData() {
+        return event;
+    }
+
+    public void setEvent(EventData event) {
+        this.event = event;
+    }
+    
+    private EventData event;
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+    
+    private Person person;
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,9 +108,14 @@ public class Event extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-        // TODO add your handling code here:
+    java.awt.Window win[] = java.awt.Window.getWindows();
+    for(int i=0;i<win.length;i++){
+        win[i].dispose();
+    }
+        SpecificEvent ventana = new SpecificEvent(getPerson(), getEventData());
+        ventana.setVisible(true);
     }//GEN-LAST:event_jPanel1MouseClicked
-
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

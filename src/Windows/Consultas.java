@@ -47,11 +47,9 @@ public class Consultas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        btnHistorial = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        btnInvitaciones = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnEstadisticas = new javax.swing.JLabel();
         btnNuevoEvento = new javax.swing.JLabel();
@@ -73,39 +71,28 @@ public class Consultas extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 210, 40));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, 210, 40));
 
-        jButton6.setText("Participación mis Eventos");
+        jButton6.setText("Listado Usuarios");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 210, 40));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 210, 40));
 
-        jButton7.setText("Eventos Realizados");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+        btnHistorial.setText("Historial de Eventos");
+        btnHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHistorialMouseClicked(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 210, 40));
-
-        jButton8.setText("Reseñas por Evento");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnHistorial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnHistorialActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 210, 40));
-
-        jButton9.setText("Historial de Eventos");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 210, 40));
+        jPanel1.add(btnHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 210, 40));
 
         jButton10.setText("Eventos Realizados");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -113,15 +100,15 @@ public class Consultas extends javax.swing.JFrame {
                 jButton10ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, 210, 40));
+        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, 210, 40));
 
-        jButton11.setText("Invitaciones a Eventos");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        btnInvitaciones.setText("Invitaciones a Eventos");
+        btnInvitaciones.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                btnInvitacionesActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 210, 40));
+        jPanel1.add(btnInvitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 210, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 670, 600));
 
@@ -196,25 +183,19 @@ public class Consultas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
+        HistorialEventos ventana = new HistorialEventos(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnHistorialActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
+    private void btnInvitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInvitacionesActionPerformed
+        Invitaciones ventana= new Invitaciones(getPerson());
+        ventana.setVisible(true);
+    }//GEN-LAST:event_btnInvitacionesActionPerformed
 
     private void btnEstadisticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEstadisticasMouseClicked
         this.dispose();
@@ -249,6 +230,11 @@ public class Consultas extends javax.swing.JFrame {
         CountingStars ventana = new CountingStars(getPerson());
         ventana.setVisible(true);
     }//GEN-LAST:event_btnCalificarMouseClicked
+
+    private void btnHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistorialMouseClicked
+       HistorialEventos ventana = new HistorialEventos(getPerson());
+       ventana.setVisible(true);
+    }//GEN-LAST:event_btnHistorialMouseClicked
 
     /**
      * @param args the command line arguments
@@ -290,15 +276,13 @@ public class Consultas extends javax.swing.JFrame {
     private javax.swing.JLabel btnConfig;
     private javax.swing.JLabel btnConsultas;
     private javax.swing.JLabel btnEstadisticas;
+    private javax.swing.JButton btnHistorial;
     private javax.swing.JLabel btnHome;
+    private javax.swing.JButton btnInvitaciones;
     private javax.swing.JLabel btnNuevoEvento;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
