@@ -71,7 +71,7 @@ public class Consultas extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 480, 210, 40));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 480, 210, 40));
 
         jButton6.setText("Listado Usuarios");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +100,7 @@ public class Consultas extends javax.swing.JFrame {
                 jButton10ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 290, 210, 40));
+        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 290, 210, 40));
 
         btnInvitaciones.setText("Invitaciones a Eventos");
         btnInvitaciones.addActionListener(new java.awt.event.ActionListener() {

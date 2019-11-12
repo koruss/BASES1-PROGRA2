@@ -50,6 +50,7 @@ public class Configuracion extends javax.swing.JFrame {
         btnHome = new javax.swing.JLabel();
         btnConsultas = new javax.swing.JLabel();
         btnCalificar = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -113,6 +114,9 @@ public class Configuracion extends javax.swing.JFrame {
         jPanel3.add(btnCalificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 600));
+
+        jPanel1.setBackground(new java.awt.Color(40, 40, 40));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 670, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -193,6 +197,7 @@ public class Configuracion extends javax.swing.JFrame {
     private javax.swing.JLabel btnEstadisticas;
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnNuevoEvento;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     // End of variables declaration//GEN-END:variables
 }

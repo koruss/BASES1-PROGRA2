@@ -1,6 +1,10 @@
 package Windows;
 
 import Business.Person;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,8 +21,26 @@ public class SignIn extends javax.swing.JFrame {
     /**
      * Creates new form SignIn
      */
+    
+ 
     public SignIn() {
         initComponents();
+//        txtPassw.addKeyListener(new KeyAdapter()
+//        {
+//        public void keyTyped(KeyEvent e)
+//            {
+//            char caracter = e.getKeyChar();
+//
+//            // Verificar si la tecla pulsada no es un digito
+//            if(((caracter == ' ') ||
+//                (caracter > '9')) &&
+//                (caracter != '\b' /*corresponde a BACK_SPACE*/))
+//            {
+//            e.consume();  // ignorar el evento de teclado
+//            }
+//            }
+//        });
+
     }
 
     /**
@@ -35,7 +57,7 @@ public class SignIn extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtPassw = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         btnIngresar = new javax.swing.JButton();
@@ -74,11 +96,6 @@ public class SignIn extends javax.swing.JFrame {
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
         txtNombre.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtNombre.setPreferredSize(new java.awt.Dimension(60, 20));
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
         jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 400, 50));
 
         jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
@@ -86,11 +103,11 @@ public class SignIn extends javax.swing.JFrame {
         jLabel2.setText("Nombre");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 80, 30));
 
-        jPasswordField1.setBackground(new java.awt.Color(40, 40, 40));
-        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPasswordField1.setPreferredSize(new java.awt.Dimension(60, 20));
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 400, 50));
+        txtPassw.setBackground(new java.awt.Color(40, 40, 40));
+        txtPassw.setForeground(new java.awt.Color(255, 255, 255));
+        txtPassw.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        txtPassw.setPreferredSize(new java.awt.Dimension(60, 20));
+        jPanel1.add(txtPassw, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 400, 50));
 
         jLabel5.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,7 +131,12 @@ public class SignIn extends javax.swing.JFrame {
                 btnIngresarMouseClicked(evt);
             }
         });
-        jPanel1.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 430, -1, -1));
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 430, 110, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 500, 600));
 
@@ -141,27 +163,34 @@ public class SignIn extends javax.swing.JFrame {
         txtArea.setSelectionColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(txtArea);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, 150, 60));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 140, 60));
 
         jLabel4.setFont(new java.awt.Font("Magneto", 0, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("E-Vent");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 150, 70));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 150, 70));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
-        this.dispose();
-        Person person= new Person();
-        EventViewer ventana =new EventViewer(person);
-        ventana.setVisible(true);
+        if(!txtNombre.getText().isEmpty() && !txtPassw.getPassword().toString().isEmpty()){
+            char[] passw = this.txtPassw.getPassword();
+            String passwF = new String(passw);  
+            this.dispose();
+            Person person= new Person();
+            EventViewer ventana =new EventViewer(person);
+            ventana.setVisible(true);   
+        }
+        else{
+            JOptionPane ventana= new JOptionPane();
+            ventana.showMessageDialog(null,"Todos los campos son requeridos");
+            ventana.setVisible(true);
+            
+        }
+
         
         
         
@@ -177,6 +206,16 @@ public class SignIn extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jLabel6MouseClicked
 
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void actionListener(){
+        txtPassw.addActionListener((ActionListener) this);
+        
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -222,9 +261,9 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea txtArea;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JPasswordField txtPassw;
     // End of variables declaration//GEN-END:variables
 }

@@ -7,6 +7,8 @@ package Windows;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -19,7 +21,8 @@ public class Registro extends javax.swing.JFrame {
      */
     public Registro() {
         initComponents();
-                txtTelefono.addKeyListener(new KeyAdapter()
+        ((JTextField)this.txtFechaNacimiento.getDateEditor()).setEditable(false);
+        txtTelefono.addKeyListener(new KeyAdapter()
         {
         public void keyTyped(KeyEvent e)
             {
@@ -57,22 +60,14 @@ public class Registro extends javax.swing.JFrame {
         txt2Apellido = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtCorreo = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtTelefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        txtFechaNacimiento = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox5 = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         txtPassw = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
@@ -109,23 +104,23 @@ public class Registro extends javax.swing.JFrame {
                 txtNameKeyPressed(evt);
             }
         });
-        jPanel2.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 180, 40));
+        jPanel2.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 190, 180, 40));
 
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Nombre");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
 
         txtApellido.setBackground(new java.awt.Color(40, 40, 40));
         txtApellido.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         txtApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 180, 40));
+        jPanel2.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, 180, 40));
 
         jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Apellido");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, -1, -1));
 
         txt2Apellido.setBackground(new java.awt.Color(40, 40, 40));
         txt2Apellido.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
@@ -135,111 +130,68 @@ public class Registro extends javax.swing.JFrame {
                 txt2ApellidoActionPerformed(evt);
             }
         });
-        jPanel2.add(txt2Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 180, 40));
+        jPanel2.add(txt2Apellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, 180, 40));
 
         jLabel3.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Segundo Apellido");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 330, -1, -1));
 
         txtCorreo.setBackground(new java.awt.Color(40, 40, 40));
         txtCorreo.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         txtCorreo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, 180, 40));
-
-        jLabel4.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Comunidad donde Vives");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 400, -1, -1));
+        jPanel2.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 190, 180, 40));
 
         txtUser.setBackground(new java.awt.Color(40, 40, 40));
         txtUser.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         txtUser.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 270, 180, 40));
+        jPanel2.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 270, 180, 40));
 
         jLabel5.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Usuario");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Fecha de Nacimiento");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 400, -1, -1));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 400, -1, -1));
 
         txtTelefono.setBackground(new java.awt.Color(40, 40, 40));
         txtTelefono.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         txtTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 180, 40));
+        jPanel2.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 430, 180, 40));
 
         jLabel7.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Telefono");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, -1, 20));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, -1, 20));
 
-        jDateChooser1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        jPanel2.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 430, 180, 40));
+        txtFechaNacimiento.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        jPanel2.add(txtFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 430, 180, 40));
 
         jLabel8.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Contraseña");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, -1, -1));
-
-        jComboBox2.setBackground(new java.awt.Color(40, 40, 40));
-        jComboBox2.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jComboBox2.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox2.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 420, 180, 40));
-
-        jComboBox3.setBackground(new java.awt.Color(40, 40, 40));
-        jComboBox3.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jComboBox3.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 200, 180, 40));
-
-        jComboBox4.setBackground(new java.awt.Color(40, 40, 40));
-        jComboBox4.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jComboBox4.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 270, 180, 40));
-
-        jComboBox5.setBackground(new java.awt.Color(40, 40, 40));
-        jComboBox5.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jComboBox5.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 350, 180, 40));
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 330, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Correo");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Pais donde Vives");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, -1, -1));
-
-        jLabel11.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Provincia donde Vives");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 250, -1, -1));
-
-        jLabel12.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Canton donde Vives");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 330, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, -1, -1));
 
         txtPassw.setBackground(new java.awt.Color(40, 40, 40));
         txtPassw.setText("jPasswordField1");
         txtPassw.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jPanel2.add(txtPassw, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 350, 180, 40));
+        jPanel2.add(txtPassw, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 350, 180, 40));
 
         jButton1.setBackground(new java.awt.Color(40, 40, 40));
         jButton1.setText("Registrar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -271,6 +223,25 @@ public class Registro extends javax.swing.JFrame {
     private void txtNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameKeyPressed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        JOptionPane ventana= new JOptionPane();
+        if(!txtName.getText().isEmpty() && !txtApellido.getText().isEmpty()  && !txt2Apellido.getText().isEmpty() && !txtTelefono.getText().isEmpty()
+               && !txtCorreo.getText().isEmpty() && txtUser.getText().isEmpty() && !txtPassw.getPassword().toString().isEmpty() ){
+           
+            //Aqui hace la funcion de la base de datos
+           
+            ventana.showMessageDialog(null,"Registrado con éxito");
+            ventana.setVisible(true);
+            SignIn ventanita= new SignIn();
+            ventanita.setVisible(true);
+        }
+        else{
+            
+            ventana.showMessageDialog(null,"Todos los campos son requeridos");
+            ventana.setVisible(true);
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -309,19 +280,10 @@ public class Registro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -332,6 +294,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JTextField txt2Apellido;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCorreo;
+    private com.toedter.calendar.JDateChooser txtFechaNacimiento;
     private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtPassw;
     private javax.swing.JTextField txtTelefono;
