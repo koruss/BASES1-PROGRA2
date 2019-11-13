@@ -5,7 +5,13 @@
  */
 package Windows;
 
+import Business.EventData;
+import Business.Funcion;
 import Business.Person;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,10 +22,14 @@ public class Invitaciones extends javax.swing.JFrame {
     /**
      * Creates new form Invitationes
      */
-    public Invitaciones(Person person) {
+    public Invitaciones(Person person) throws SQLException, ClassNotFoundException {
         initComponents();
         setPerson(person);
         cargarEventosInvitados();
+                if(person.getTypeUser()!=1){  //significa que  no es administrador
+            this.btnNuevoEvento.setVisible(false);
+            this.btnEstadisticas.setVisible(false);
+        }
     }
     
     
@@ -37,10 +47,28 @@ public class Invitaciones extends javax.swing.JFrame {
         this.person = person;
     }
     
-    
-    
-    public void cargarEventosInvitados(){
+    public void setEventData(EventData event) {
+        this.eventData = event;
+    }    
+    private EventData eventData;
+  
+    public void cargarEventosInvitados() throws SQLException, ClassNotFoundException{
+        int contador=0;
+        Funcion functions=new Funcion();
+        ResultSet rs=functions.User_Consults_a_PrivateEvent(getPerson().getCedula(),jComboBox3.getSelectedItem().toString());
+        while(rs.next()) {
+           EventData eventData = new EventData(rs.getString("EVENT_NAME"),rs.getString("DESCRIPTION"),rs.getString("DATE"),Integer.parseInt(rs.getString("ID_EVENT")),Integer.parseInt(rs.getString("ID_CLASSIFICATION")),Integer.parseInt(rs.getString("ID_COMMUNITY")),rs.getString("PLACE"));
+            setEventData(eventData);
+           // aqui se modifican los datos con los de la base de datos para cargar los eventos
+           
+           Event event = new Event(getPerson(),eventData);//el panel del evento
+           
+            panelEventos.add(event, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, contador, -1, -1));
+            pack();
+            contador+=160;
         
+        } 
+        pack();
     }
 
     /**
@@ -174,9 +202,15 @@ public class Invitaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfigMouseClicked
 
     private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
-        this.dispose();
-        EventViewer ventana = new EventViewer(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            EventViewer ventana = new EventViewer(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Invitaciones.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Invitaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnHomeMouseClicked
 
     private void btnConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultasMouseClicked

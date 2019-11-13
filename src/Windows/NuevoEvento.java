@@ -6,6 +6,9 @@
 package Windows;
 
 import Business.Person;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,6 +21,10 @@ public class NuevoEvento extends javax.swing.JFrame {
      */
     public NuevoEvento(Person person) {
         initComponents();
+                if(person.getTypeUser()!=1){  //significa que  no es administrador
+            this.btnNuevoEvento.setVisible(false);
+            this.btnEstadisticas.setVisible(false);
+        }
     }
     
     private Person person;
@@ -311,9 +318,15 @@ public class NuevoEvento extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
-        this.dispose();
-        EventViewer ventana = new EventViewer(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            EventViewer ventana = new EventViewer(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(NuevoEvento.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(NuevoEvento.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnHomeMouseClicked
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed

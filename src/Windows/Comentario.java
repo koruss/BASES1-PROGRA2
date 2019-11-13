@@ -14,8 +14,10 @@ public class Comentario extends javax.swing.JPanel {
     /**
      * Creates new form Comentario
      */
-    public Comentario() {
+    public Comentario(String name,String description) {
         initComponents();
+        this.lblName.setText(name);
+        this.txtComment.setText(description);
     }
 
     /**
@@ -27,20 +29,25 @@ public class Comentario extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtHora = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtComment = new javax.swing.JTextArea();
         txtNombre = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txtHora.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        txtHora.setText("Nombre");
-        add(txtHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 80, 20));
+        lblName.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        lblName.setText("Nombre");
+        add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 380, 40));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        txtComment.setColumns(20);
+        txtComment.setLineWrap(true);
+        txtComment.setRows(5);
+        txtComment.setToolTipText("");
+        txtComment.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(txtComment);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 440, 50));
 
@@ -52,8 +59,8 @@ public class Comentario extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JLabel txtHora;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JTextArea txtComment;
     private javax.swing.JLabel txtNombre;
     // End of variables declaration//GEN-END:variables
 }

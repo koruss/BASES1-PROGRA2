@@ -5,9 +5,14 @@
  */
 package Windows;
 
+import Business.Funcion;
 import Business.Person;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -30,7 +35,22 @@ public class Statistics extends javax.swing.JFrame {
      */
     public Statistics(Person person) {
         initComponents();
+        ocultarCajas();
         setPerson(person);
+                if(person.getTypeUser()!=1){  //significa que  no es administrador
+            this.btnNuevoEvento.setVisible(false);
+            this.btnEstadisticas.setVisible(false);
+        }
+    }
+    
+    public void ocultarCajas(){
+        this.lblSeleccione.setVisible(false);
+        this.lblFecha.setVisible(false);
+        this.lblTop.setVisible(false);
+        //this.lblClasificacion.setVisible(false);
+        this.txtFecha.setVisible(false);
+        //this.jCategoria.setVisible(false);
+        this.jTop.setVisible(false);   
     }
 
     private Statistics() {
@@ -58,14 +78,16 @@ public class Statistics extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
+        txtFecha = new com.toedter.calendar.JDateChooser();
         panelGrafica = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jComboBox5 = new javax.swing.JComboBox<>();
-        jTextField10 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        lblTop = new javax.swing.JLabel();
+        jFiltro = new javax.swing.JComboBox<>();
+        jTop = new javax.swing.JTextField();
+        lblSeleccione = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         btnEstadisticas = new javax.swing.JLabel();
         btnNuevoEvento = new javax.swing.JLabel();
@@ -80,7 +102,7 @@ public class Statistics extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(40, 40, 40));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton2.setText("Crear Evento");
+        jButton2.setText("Consultar");
         jButton2.setActionCommand("");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -92,7 +114,10 @@ public class Statistics extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, -1, -1));
+
+        txtFecha.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, 150, 30));
 
         panelGrafica.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -113,37 +138,41 @@ public class Statistics extends javax.swing.JFrame {
 
         jPanel1.add(panelGrafica, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 630, 380));
 
-        jLabel1.setText("Filtros");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 40, 30));
+        lblTop.setText("Top");
+        jPanel1.add(lblTop, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 60, 30));
 
-        jComboBox4.setBackground(new java.awt.Color(40, 40, 40));
-        jComboBox4.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jComboBox4.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Estadisticas-", "Por Categoría", "Eventos Por Fecha", "Top Eventos por Asistencia", "Top Eventos mejor Calificación", "Top Eventos peor Calificación", "Rango de Edad Usuarios", "Reseñas por Categoría", " ", " " }));
-        jComboBox4.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
-        jPanel1.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 100, 190, 30));
-
-        jComboBox5.setBackground(new java.awt.Color(40, 40, 40));
-        jComboBox5.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jComboBox5.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox5.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Estadisticas-", "Por Categoría", "Eventos Por Fecha", "Top Eventos por Asistencia", "Top Eventos por mejor Calificación", "Top Eventos por peor Calificación", "Rango de Edad Usuarios", "Reseñas por Categoría", " ", " " }));
-        jComboBox5.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
-        jPanel1.add(jComboBox5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 60, 120, 30));
-
-        jTextField10.setBackground(new java.awt.Color(40, 40, 40));
-        jTextField10.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jTextField10.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
+        jFiltro.setBackground(new java.awt.Color(40, 40, 40));
+        jFiltro.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        jFiltro.setForeground(new java.awt.Color(255, 255, 255));
+        jFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Por Categoría", "Eventos Por Fecha", "Top Eventos por Asistencia", "Top Eventos mejor Calificación", "Top Eventos peor Calificación", "Rango de Edad Usuarios", "Reseñas por Categoría", " ", " " }));
+        jFiltro.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
+        jFiltro.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jFiltroItemStateChanged(evt);
             }
         });
-        jPanel1.add(jTextField10, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 120, 50, 30));
+        jPanel1.add(jFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 190, 30));
 
-        jLabel2.setText("Ingresa el Dato");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, -1, -1));
+        jTop.setBackground(new java.awt.Color(40, 40, 40));
+        jTop.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        jTop.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
+        jTop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTopActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTop, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 120, 50, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 670, 600));
+        lblSeleccione.setText("Seleccione el dato requerido para aplicar ek filtro");
+        jPanel1.add(lblSeleccione, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, -1, -1));
+
+        jLabel3.setText("Filtrar por");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 60, 30));
+
+        lblFecha.setText("Fecha");
+        jPanel1.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 60, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 670, 600));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setPreferredSize(new java.awt.Dimension(130, 600));
@@ -225,9 +254,15 @@ public class Statistics extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfigMouseClicked
 
     private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
-        this.dispose();
-        EventViewer ventana = new EventViewer(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            EventViewer ventana = new EventViewer(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnHomeMouseClicked
 
     private void btnConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultasMouseClicked
@@ -242,18 +277,124 @@ public class Statistics extends javax.swing.JFrame {
         ventana.setVisible(true);
     }//GEN-LAST:event_btnCalificarMouseClicked
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
+    private void jTopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTopActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
+    }//GEN-LAST:event_jTopActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        DefaultPieDataset result =new DefaultPieDataset();
-        crearPieChart(result);
+        try {
+            DefaultPieDataset result =new DefaultPieDataset();
+            Funcion functions=new Funcion();
+            ResultSet rs=null;
+            String opc = jFiltro.getSelectedItem().toString();
+            int topValue;
+            switch (opc){
+                case "Por Categoría":
+                    rs=functions.statisticsEventXClassification();//aqui va la funcion del connect
+                    while(rs.next()){
+                        try {
+                            result.setValue(rs.getString("CLASSIFICATION_NAME"),Integer.parseInt((rs.getString("PARCIAL"))));
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    // se modifica el result para que muestre los datos de la siguiente manera:
+                    //result.setValue("jaja",55);
+                    crearPieChart(result);
+                    break;
+                case "Eventos Por Fecha":
+                    /*rs=functions.statisticsEventXClassification();//aqui va la funcion del connect
+                    while(rs.next()){
+                        try {
+                            result.setValue(rs.getString("CLASSIFICATION_NAME"),Integer.parseInt((rs.getString("PARCIAL"))));
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    */
+                    crearPieChart(result);
+                    break;
+                case "Top Eventos por Asistencia":
+                    topValue= Integer.parseInt(jTop.getText());
+                    rs=functions.statisticsTopMoreAttendees(topValue);//aqui va la funcion del connect
+                    while(rs.next()){
+                        try {
+                            result.setValue(rs.getString("EVENT_NAME"),Integer.parseInt((rs.getString("ASSISTANCE"))));
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    crearPieChart(result);
+                    break;
+                case "Top Eventos mejor Calificación":
+                    topValue = Integer.parseInt(jTop.getText());
+                    rs=functions.statisticsTopBestReview(topValue);//aqui va la funcion del connect
+                    while(rs.next()){
+                        try {
+                            result.setValue(rs.getString("EVENT_NAME"),Integer.parseInt((rs.getString("REVIEW"))));
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    crearPieChart(result);
+                    break;
+                case"Top Eventos peor Calificación":
+                    topValue = Integer.parseInt(jTop.getText());
+                    rs=functions.statisticsTopWorstReview(topValue);//aqui va la funcion del connect
+                    while(rs.next()){
+                        try {
+                            result.setValue(rs.getString("EVENT_NAME"),Integer.parseInt((rs.getString("REVIEW"))));
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    crearPieChart(result);
+                    break;
+                    
+                case "Rango de Edad Usuarios":
+                    rs=functions.statisticsAgeRange();//aqui va la funcion del connect
+                    while(rs.next()){
+                        try {
+                            result.setValue(rs.getString("AGE"),Integer.parseInt((rs.getString("PARCIAL"))));
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    crearPieChart(result);
+            
+                    break;
+                case "Reseñas por Categoría":
+                    rs=functions.statisticsReviewXClassification();//aqui va la funcion del connect
+                    while(rs.next()){
+                        try {
+                            result.setValue(rs.getString("CLASSIFICATION_NAME"),Integer.parseInt((rs.getString("PARCIAL"))));
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    crearPieChart(result);
+                    break;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Statistics.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jFiltroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jFiltroItemStateChanged
+        ocultarCajas();
+        this.lblSeleccione.setVisible(true);
+        if(jFiltro.getSelectedIndex()==2 || jFiltro.getSelectedIndex()==3 || jFiltro.getSelectedIndex()==4){
+            this.lblTop.setVisible(true);
+            this.jTop.setVisible(true);
+        }
+    }//GEN-LAST:event_jFiltroItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -292,12 +433,14 @@ public class Statistics extends javax.swing.JFrame {
     
     
         public void crearPieChart(DefaultPieDataset data){
-
-        DefaultPieDataset result =new DefaultPieDataset();
-        result.setValue("hola", 22);
-        result.setValue("jaja",55);
         
-        JFreeChart chart =ChartFactory.createPieChart3D("", result, true,true,false);
+        panelGrafica.removeAll();
+        panelGrafica.repaint();
+        //DefaultPieDataset result =new DefaultPieDataset();
+        //result.setValue("hola", 22);
+        //result.setValue("jaja",55);
+        
+        JFreeChart chart =ChartFactory.createPieChart3D("", data, true,true,false);
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
         plot.setStartAngle(0);
         plot.setDirection(Rotation.CLOCKWISE);
@@ -326,15 +469,17 @@ public class Statistics extends javax.swing.JFrame {
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnNuevoEvento;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private javax.swing.JComboBox<String> jComboBox5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JComboBox<String> jFiltro;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTop;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblSeleccione;
+    private javax.swing.JLabel lblTop;
     private javax.swing.JPanel panelGrafica;
+    private com.toedter.calendar.JDateChooser txtFecha;
     // End of variables declaration//GEN-END:variables
 }

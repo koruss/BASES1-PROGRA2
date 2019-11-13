@@ -6,20 +6,34 @@
 package Windows;
 
 import Business.EventData;
+import Business.Funcion;
 import Business.Person;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JTextField;
 
 /**
  *
  * @author kcorr
  */
 public class listadoEventos extends javax.swing.JFrame {
+    public SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd");
 
     /**
      * Creates new form listadoEventos
      */
     public listadoEventos(Person person) {
         initComponents();
+        panelListaEventos.setVisible(false);
         setPerson(person);
+        ((JTextField)this.txtFecha.getDateEditor()).setEditable(false);
+            if(person.getTypeUser()!=1){  //significa que  no es administrador
+            this.btnNuevoEvento.setVisible(false);
+            this.btnEstadisticas.setVisible(false);
+        }
     }
  private Person person;
 
@@ -46,17 +60,32 @@ public class listadoEventos extends javax.swing.JFrame {
     }
     
     
-   public void cargarListaEventos(){
-        for(int contador=0;contador<1000;contador+=160){
-            EventData eventData = new EventData();
-            setEventData(eventData);
-           // aqui se modifican los datos con los de la base de datos para cargar los eventos
+   public void cargarListaEventos(boolean isPosterior) throws SQLException, ClassNotFoundException{
+       this.panelListaEventos.setVisible(true);
+        int contador=0;
+        Funcion functions=new Funcion();
+        String fecha=dateFormat.format(txtFecha.getDate());
+        System.out.println(fecha);
+        ResultSet rs;
+       if(isPosterior){
+          rs=functions.adminConsultPastEvent(fecha);    
+       }
+       else{
+           rs=functions. adminConsultNextEvent(fecha);
+       }
+        while(rs.next()) {
+            System.out.println(rs.getString("EVENT_NAME"));
+            System.out.println(rs.getString("DATE"));
+            System.out.println(rs.getString("DESCRIPTION"));
+            
            
-           Event event = new Event(getPerson(),eventData);//el panel del evento
+           EventConsulta event = new EventConsulta(rs.getString("EVENT_NAME"),rs.getString("DATE"),rs.getString("DESCRIPTION"));//el panel del evento
            
             panelListaEventos.add(event, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, contador, -1, -1));
             pack();
-        }
+            contador+=160;
+        
+        } 
         pack();
    }
    
@@ -80,8 +109,8 @@ public class listadoEventos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        comboOpcion = new javax.swing.JComboBox<>();
+        txtFecha = new com.toedter.calendar.JDateChooser();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         panelListaEventos = new javax.swing.JPanel();
@@ -155,16 +184,16 @@ public class listadoEventos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Eventos ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, 30));
 
         jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Filtrar:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 60, 20));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione-", "Anteriores", "Posteriores" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 140, 40));
-        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, -1, 40));
+        comboOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Anteriores", "Posteriores" }));
+        jPanel1.add(comboOpcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 140, 40));
+        jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, 40));
 
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -172,27 +201,16 @@ public class listadoEventos extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 110, -1, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 110, -1, 40));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         panelListaEventos.setBackground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout panelListaEventosLayout = new javax.swing.GroupLayout(panelListaEventos);
-        panelListaEventos.setLayout(panelListaEventosLayout);
-        panelListaEventosLayout.setHorizontalGroup(
-            panelListaEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 667, Short.MAX_VALUE)
-        );
-        panelListaEventosLayout.setVerticalGroup(
-            panelListaEventosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 317, Short.MAX_VALUE)
-        );
-
+        panelListaEventos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jScrollPane1.setViewportView(panelListaEventos);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 670, 320));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 670, 390));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 670, 600));
 
@@ -216,9 +234,15 @@ public class listadoEventos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfigMouseClicked
 
     private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
-        this.dispose();
-        EventViewer ventana = new EventViewer(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            EventViewer ventana = new EventViewer(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(listadoEventos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(listadoEventos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnHomeMouseClicked
 
     private void btnConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultasMouseClicked
@@ -234,7 +258,22 @@ public class listadoEventos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCalificarMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String opcion=comboOpcion.getSelectedItem().toString();
+        try{
+             if(opcion.equals("Anteriores")){
+                 cargarListaEventos(false);
+
+        }
+             else{
+                 cargarListaEventos(true);
+                 
+             }       
+        }
+            catch (SQLException ex) {
+                Logger.getLogger(listadoEventos.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(listadoEventos.class.getName()).log(Level.SEVERE, null, ex);
+            }     
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -279,14 +318,14 @@ public class listadoEventos extends javax.swing.JFrame {
     private javax.swing.JLabel btnEstadisticas;
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnNuevoEvento;
+    private javax.swing.JComboBox<String> comboOpcion;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelListaEventos;
+    private com.toedter.calendar.JDateChooser txtFecha;
     // End of variables declaration//GEN-END:variables
 }

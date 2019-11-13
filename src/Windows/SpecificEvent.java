@@ -6,7 +6,12 @@
 package Windows;
 
 import Business.EventData;
+import Business.Funcion;
 import Business.Person;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,10 +22,17 @@ public class SpecificEvent extends javax.swing.JFrame {
     /**
      * Creates new form SpecificEvent
      */
-    public SpecificEvent(Person person,EventData event) {
+    public SpecificEvent(Person person,EventData event) throws SQLException, ClassNotFoundException {
         setPerson(person);
         setEvent(event);
         initComponents();
+        this.lblEventName.setText(event.getTitle());
+        this.txtInfo.setText(event.getDescription());
+        cargarComentarios();
+            if(person.getTypeUser()!=1){  //significa que  no es administrador
+            this.btnNuevoEvento.setVisible(false);
+            this.btnEstadisticas.setVisible(false);
+        }
     }
 
     public EventData getEvent() {
@@ -47,11 +59,16 @@ public class SpecificEvent extends javax.swing.JFrame {
         this.person = person;
     }
     
-    public void cargarComentarios(){
-        for(int i =0; i <1000; i+=100){
-            Comentario comentario= new Comentario();
-            panelComentarios.add(comentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, i, -1, -1));
+    public void cargarComentarios() throws SQLException, ClassNotFoundException{
+        int contador=0;
+        Funcion functions=new Funcion();
+        ResultSet rs=functions.Normal_Consults_CommentsXEvent(getEvent().getIdEvent());
+        while(rs.next()){
+            String nombre=rs.getString("NAME")+" "+rs.getString("FIRST_LAST_NAME")+" "+rs.getString("SECOND_LAST_NAME");
+            Comentario comentario= new Comentario(nombre,rs.getString("DESCRIPTION"));
+            panelComentarios.add(comentario, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, contador, -1, -1));
             pack();
+            contador+=160;
         }  
     }
 
@@ -67,13 +84,13 @@ public class SpecificEvent extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jComboBox3 = new javax.swing.JComboBox<>();
-        eventTitle = new javax.swing.JLabel();
+        lblEventName = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtInfo = new javax.swing.JTextArea();
         scrollPanel = new javax.swing.JScrollPane();
         panelComentarios = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -102,10 +119,10 @@ public class SpecificEvent extends javax.swing.JFrame {
         jComboBox3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 70, 180, 40));
 
-        eventTitle.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        eventTitle.setForeground(new java.awt.Color(255, 255, 255));
-        eventTitle.setText("Nombre del Evento");
-        jPanel1.add(eventTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 360, -1));
+        lblEventName.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        lblEventName.setForeground(new java.awt.Color(255, 255, 255));
+        lblEventName.setText("Nombre del Evento");
+        jPanel1.add(lblEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 360, -1));
 
         jLabel4.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -127,11 +144,10 @@ public class SpecificEvent extends javax.swing.JFrame {
         jLabel12.setText("Evento: ");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtInfo.setEditable(false);
+        txtInfo.setColumns(20);
+        txtInfo.setRows(5);
+        jScrollPane1.setViewportView(txtInfo);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 590, 90));
 
@@ -242,9 +258,15 @@ public class SpecificEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfigMouseClicked
 
     private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
-        this.dispose();
-        EventViewer ventana = new EventViewer(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            EventViewer ventana = new EventViewer(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(SpecificEvent.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SpecificEvent.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnHomeMouseClicked
 
     private void btnConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultasMouseClicked
@@ -301,7 +323,6 @@ public class SpecificEvent extends javax.swing.JFrame {
     private javax.swing.JLabel btnEstadisticas;
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnNuevoEvento;
-    private javax.swing.JLabel eventTitle;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -314,8 +335,9 @@ public class SpecificEvent extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lblEventName;
     private javax.swing.JPanel panelComentarios;
     private javax.swing.JScrollPane scrollPanel;
+    private javax.swing.JTextArea txtInfo;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,7 +6,12 @@
 package Windows;
 
 import Business.EventData;
+import Business.Funcion;
 import Business.Person;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,13 +22,25 @@ public class EventViewer extends javax.swing.JFrame {
     /**
      * Creates new form EventViewer
      */
-    public EventViewer(Person person ) {
+    public EventViewer(Person person) throws SQLException, ClassNotFoundException {
         initComponents();
         this.person=person;
+        if(person.getTypeUser()!=1){  //significa que  no es administrador
+            this.btnNuevoEvento.setVisible(false);
+            this.btnEstadisticas.setVisible(false);
+        }
+
         cargarEventos();
     }
     
+//    public EventViewer(Person person,boolean anterior) throws SQLException, ClassNotFoundException {
+//        initComponents();
+//        this.person=person;
+//        cargarEventosAnteriores();
+//    }
+    
     private Person person;
+    
 
     public Person getPerson() {
         return person;
@@ -46,9 +63,12 @@ public class EventViewer extends javax.swing.JFrame {
     EventViewer() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    public void cargarEventos(){
-        for(int contador=0;contador<1000;contador+=160){
-            EventData eventData = new EventData();
+    public void cargarEventos() throws SQLException, ClassNotFoundException{
+        int contador=0;
+        Funcion functions=new Funcion();
+        ResultSet rs=functions.user_Consults_b_nextEvents();
+        while(rs.next()) {
+           EventData eventData = new EventData(rs.getString("EVENT_NAME"),rs.getString("DESCRIPTION"),rs.getString("DATE"),Integer.parseInt(rs.getString("ID_EVENT")),Integer.parseInt(rs.getString("ID_CLASSIFICATION")),Integer.parseInt(rs.getString("ID_COMMUNITY")),rs.getString("PLACE"));
             setEventData(eventData);
            // aqui se modifican los datos con los de la base de datos para cargar los eventos
            
@@ -56,11 +76,31 @@ public class EventViewer extends javax.swing.JFrame {
            
             panelEventos.add(event, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, contador, -1, -1));
             pack();
-        }
-        pack();
+            contador+=160;
         
+        } 
+        pack();
     }
 
+//    public void cargarEventosAnteriores() throws SQLException, ClassNotFoundException{
+//        int contador=0;
+//        Funcion functions=new Funcion();
+//      //  ResultSet rs=null
+//      functions.adminConsultPastEvent();
+//        while(rs.next()) {
+//           EventData eventData = new EventData(rs.getString("EVENT_NAME"),rs.getString("DESCRIPTION"),rs.getString("DATE"),Integer.parseInt(rs.getString("ID_EVENT")),Integer.parseInt(rs.getString("ID_CLASSIFICATION")),Integer.parseInt(rs.getString("ID_COMMUNITY")),rs.getString("PLACE"));
+//            setEventData(eventData);
+//           // aqui se modifican los datos con los de la base de datos para cargar los eventos
+//           
+//           Event event = new Event(getPerson(),eventData);//el panel del evento
+//           
+//            panelEventos.add(event, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, contador, -1, -1));
+//            pack();
+//            contador+=160;
+//        
+//        } 
+//        pack();
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -180,9 +220,15 @@ public class EventViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfigMouseClicked
 
     private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
-        this.dispose();
-        EventViewer ventana = new EventViewer(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            EventViewer ventana = new EventViewer(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(EventViewer.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(EventViewer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnHomeMouseClicked
 
     private void btnConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultasMouseClicked

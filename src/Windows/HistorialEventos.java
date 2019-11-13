@@ -5,7 +5,12 @@
  */
 package Windows;
 
+import Business.Funcion;
 import Business.Person;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,9 +21,15 @@ public class HistorialEventos extends javax.swing.JFrame {
     /**
      * Creates new form HistorialEventos
      */
-    public HistorialEventos(Person person) {
+    public HistorialEventos(Person person) throws SQLException, ClassNotFoundException {
         initComponents();
-        this.person=person;
+        setPerson(person);
+        cargarComboEventos();
+                if(person.getTypeUser()!=1){  //significa que  no es administrador
+            this.btnNuevoEvento.setVisible(false);
+            this.btnEstadisticas.setVisible(false);
+        }
+        
     }
 
     private HistorialEventos() {
@@ -34,6 +45,9 @@ public class HistorialEventos extends javax.swing.JFrame {
     }
     
     private Person person;
+    
+    
+    public ResultSet result;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,18 +61,20 @@ public class HistorialEventos extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        comboEventos = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtReview = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblHora = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txtDescription = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
-        tctName = new javax.swing.JLabel();
+        txtName = new javax.swing.JLabel();
+        lblStars = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnEstadisticas = new javax.swing.JLabel();
         btnNuevoEvento = new javax.swing.JLabel();
@@ -85,14 +101,19 @@ public class HistorialEventos extends javax.swing.JFrame {
         jLabel6.setText("Eventos");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
 
-        jComboBox3.setBackground(new java.awt.Color(40, 40, 40));
-        jComboBox3.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jComboBox3.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione-", "Me Interesa", "Asistiré", "Talvez Asista", "No Asistiré" }));
-        jComboBox3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
-        jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 430, 40));
+        comboEventos.setBackground(new java.awt.Color(40, 40, 40));
+        comboEventos.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        comboEventos.setForeground(new java.awt.Color(255, 255, 255));
+        comboEventos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-Seleccione-", "Me Interesa", "Asistiré", "Talvez Asista", "No Asistiré" }));
+        comboEventos.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
+        jPanel1.add(comboEventos, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 430, 40));
 
         jButton1.setText("Visualizar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -100,36 +121,66 @@ public class HistorialEventos extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, -1, -1));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 600, 90));
+        txtReview.setEditable(false);
+        txtReview.setBackground(new java.awt.Color(40, 40, 40));
+        txtReview.setColumns(20);
+        txtReview.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtReview.setForeground(new java.awt.Color(255, 255, 255));
+        txtReview.setLineWrap(true);
+        txtReview.setRows(5);
+        txtReview.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(txtReview);
 
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, 600, 100));
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Descripción");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
 
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Hora:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, 40, -1));
 
-        jLabel4.setText("jLabel4");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 280, -1, -1));
+        lblHora.setForeground(new java.awt.Color(255, 255, 255));
+        lblHora.setText("jLabel4");
+        jPanel1.add(lblHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, -1, -1));
 
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Reseña");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 440, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, -1, 60));
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
+        txtDescription.setEditable(false);
+        txtDescription.setBackground(new java.awt.Color(40, 40, 40));
+        txtDescription.setColumns(20);
+        txtDescription.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtDescription.setForeground(new java.awt.Color(255, 255, 255));
+        txtDescription.setLineWrap(true);
+        txtDescription.setRows(5);
+        txtDescription.setWrapStyleWord(true);
+        jScrollPane2.setViewportView(txtDescription);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 600, 90));
 
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Creador:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, -1));
 
-        tctName.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        tctName.setText("jLabel8");
-        jPanel1.add(tctName, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, -1, -1));
+        txtName.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        txtName.setForeground(new java.awt.Color(255, 255, 255));
+        txtName.setText("jLabel8");
+        jPanel1.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, -1, -1));
+
+        lblStars.setForeground(new java.awt.Color(255, 255, 255));
+        lblStars.setText("1");
+        jPanel1.add(lblStars, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 410, 30, 60));
+
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Estrellas");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 410, -1, 60));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 670, 600));
 
@@ -214,8 +265,16 @@ public class HistorialEventos extends javax.swing.JFrame {
 
     private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
         this.dispose();
-        EventViewer ventana = new EventViewer(getPerson());
-        ventana.setVisible(true);
+        EventViewer ventana;
+        try {
+            ventana = new EventViewer(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(HistorialEventos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(HistorialEventos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_btnHomeMouseClicked
 
     private void btnConsultasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConsultasMouseClicked
@@ -234,6 +293,35 @@ public class HistorialEventos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try {
+            String nombre=comboEventos.getSelectedItem().toString();
+            result.beforeFirst();
+            while(result.next()){
+                if (result.getString("EVENT_NAME").equals(nombre)){
+                    txtName.setText(result.getString("NAME"));
+                    txtDescription.setText(result.getString("DESCRIPTION"));
+                    lblStars.setText(result.getString("REVIEW")); 
+                    txtReview.setText(result.getString("COMMENT_DESCRIPTION"));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(HistorialEventos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    
+    
+    private void cargarComboEventos() throws SQLException, ClassNotFoundException{
+    
+     Funcion functions = new Funcion();
+     result=Funcion.User_Consults_c_ListEvents(getPerson().getCedula());
+     comboEventos.removeAllItems();
+     while(result.next()){
+         comboEventos.addItem(result.getString("EVENT_NAME"));  
+     }
+}
+    
     /**
      * @param args the command line arguments
      */
@@ -276,8 +364,8 @@ public class HistorialEventos extends javax.swing.JFrame {
     private javax.swing.JLabel btnEstadisticas;
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnNuevoEvento;
+    private javax.swing.JComboBox<String> comboEventos;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -289,8 +377,10 @@ public class HistorialEventos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JLabel tctName;
+    private javax.swing.JLabel lblHora;
+    private javax.swing.JLabel lblStars;
+    private javax.swing.JTextArea txtDescription;
+    private javax.swing.JLabel txtName;
+    private javax.swing.JTextArea txtReview;
     // End of variables declaration//GEN-END:variables
 }

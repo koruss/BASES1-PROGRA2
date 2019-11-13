@@ -7,6 +7,9 @@ package Windows;
 
 import Business.EventData;
 import Business.Person;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,15 +20,15 @@ public class Event extends javax.swing.JPanel {
     /**
      * Creates new form EventData
      */
-    public Event(Person person,EventData event,int type) {
+    public Event(Person person,EventData event) {
         initComponents();
         setEvent(event);
+        this.lblEventName.setText(event.getTitle());
+        this.txtDescription.setText(event.getDescription());
         this.type=type;
+        setPerson(person);
     }
-   public Event(Person person,EventData event) {
-        initComponents();
-        setEvent(event);
-    }
+
     public int type;
     
     
@@ -61,9 +64,9 @@ public class Event extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblEventName = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtDescription = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(40, 40, 40));
@@ -75,19 +78,20 @@ public class Event extends javax.swing.JPanel {
         });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Nombre del Evento");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 140, -1));
+        lblEventName.setForeground(new java.awt.Color(255, 255, 255));
+        lblEventName.setText("Nombre del Evento");
+        jPanel1.add(lblEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 140, -1));
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
-        jTextArea1.setBackground(new java.awt.Color(40, 40, 40));
-        jTextArea1.setColumns(20);
-        jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextArea1.setRows(5);
-        jTextArea1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        jScrollPane1.setViewportView(jTextArea1);
+        txtDescription.setEditable(false);
+        txtDescription.setBackground(new java.awt.Color(40, 40, 40));
+        txtDescription.setColumns(20);
+        txtDescription.setForeground(new java.awt.Color(255, 255, 255));
+        txtDescription.setRows(5);
+        txtDescription.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        jScrollPane1.setViewportView(txtDescription);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 580, 80));
 
@@ -108,20 +112,26 @@ public class Event extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-    java.awt.Window win[] = java.awt.Window.getWindows();
-    for(int i=0;i<win.length;i++){
-        win[i].dispose();
-    }
-        SpecificEvent ventana = new SpecificEvent(getPerson(), getEventData());
-        ventana.setVisible(true);
+        try {
+            java.awt.Window win[] = java.awt.Window.getWindows();
+            for(int i=0;i<win.length;i++){
+                win[i].dispose();
+            }
+            SpecificEvent ventana = new SpecificEvent(getPerson(), getEventData());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Event.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Event.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jPanel1MouseClicked
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lblEventName;
+    private javax.swing.JTextArea txtDescription;
     // End of variables declaration//GEN-END:variables
 }

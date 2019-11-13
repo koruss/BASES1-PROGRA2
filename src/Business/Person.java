@@ -11,6 +11,15 @@ package Business;
  */
 public class Person {
 
+    public Person(int typeUser, String nombre, String cedula, String apellido, String SegundoApellido, String nacimiento) {
+        this.typeUser = typeUser;
+        this.nombre = nombre;
+        this.cedula = cedula;
+        this.apellido = apellido;
+        this.SegundoApellido = SegundoApellido;
+        this.nacimiento = nacimiento;
+    }
+
     public int getTypeUser() {
         return typeUser;
     }

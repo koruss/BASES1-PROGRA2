@@ -1,9 +1,14 @@
 package Windows;
 
+import Business.Funcion;
 import Business.Person;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -150,7 +155,6 @@ public class SignIn extends javax.swing.JFrame {
         jScrollPane1.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
 
         txtArea.setEditable(false);
-        txtArea.setBackground(new java.awt.Color(255, 255, 255));
         txtArea.setColumns(20);
         txtArea.setForeground(new java.awt.Color(51, 51, 51));
         txtArea.setLineWrap(true);
@@ -166,7 +170,6 @@ public class SignIn extends javax.swing.JFrame {
         jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 140, 60));
 
         jLabel4.setFont(new java.awt.Font("Magneto", 0, 36)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("E-Vent");
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 150, 70));
 
@@ -176,13 +179,32 @@ public class SignIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIngresarMouseClicked
-        if(!txtNombre.getText().isEmpty() && !txtPassw.getPassword().toString().isEmpty()){
+            Funcion functions=new Funcion();
+            if(!txtNombre.getText().isEmpty() && !txtPassw.getPassword().toString().isEmpty()){
             char[] passw = this.txtPassw.getPassword();
             String passwF = new String(passw);  
-            this.dispose();
-            Person person= new Person();
-            EventViewer ventana =new EventViewer(person);
-            ventana.setVisible(true);   
+                try {
+                    ResultSet rs=functions.username_validateUser(txtNombre.getText(),passwF);
+                    if(rs.next()) {
+                        String identification=rs.getString("IDENTIFICATION");
+                        ResultSet datos=functions.person_getPerson(identification);
+                        datos.next();
+                        Person person= new Person(Integer.parseInt(datos.getString("ID_USERTYPE")),datos.getString("NAME"),datos.getString("IDENTIFICATION"),datos.getString("FIRST_LAST_NAME"),datos.getString("SECOND_LAST_NAME"),datos.getString("BIRTHDATE"));
+                        this.dispose();
+                        EventViewer ventana =new EventViewer(person);
+                        ventana.setVisible(true);                         
+                    }
+                    else {
+                        JOptionPane ventana= new JOptionPane();
+                        ventana.showMessageDialog(null,"Nombre de usuario o contraseña incorrectos");
+                        ventana.setVisible(true);                       
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(SignIn.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(SignIn.class.getName()).log(Level.SEVERE, null, ex);
+                }
+ 
         }
         else{
             JOptionPane ventana= new JOptionPane();
@@ -191,10 +213,7 @@ public class SignIn extends javax.swing.JFrame {
             
         }
 
-        
-        
-        
-        
+         
     }//GEN-LAST:event_btnIngresarMouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
