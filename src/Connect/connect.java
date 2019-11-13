@@ -214,7 +214,7 @@ public class connect {
     
     public static ResultSet classification_getClassification(int pIdClassification) throws SQLException, ClassNotFoundException{
         getConnection();
-        CallableStatement stmt= con.prepareCall("{ call event_manager.kindPerson_getKindPerson(?)}",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        CallableStatement stmt= con.prepareCall("{ call event_manager.classification_getClassification(?)}",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         if(pIdClassification == -1) stmt.setNull(1,java.sql.Types.BIGINT);
         else stmt.setInt(1,pIdClassification);
         ResultSet rs=stmt.executeQuery();
@@ -339,7 +339,7 @@ public class connect {
 
     public static ResultSet kindperson_getKindPerson(int pIdKindPerson) throws SQLException, ClassNotFoundException{
         getConnection();
-        CallableStatement stmt= con.prepareCall("{ call event_manager.kindperson_getKindPersone(?)}",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+        CallableStatement stmt= con.prepareCall("{ call event_manager.kindperson_getKindPerson(?)}",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         if(pIdKindPerson == -1) stmt.setNull(1,java.sql.Types.BIGINT);
         else stmt.setInt(1,pIdKindPerson);
         ResultSet rs=stmt.executeQuery();

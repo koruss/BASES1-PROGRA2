@@ -135,9 +135,15 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEstadisticasMouseClicked
 
     private void btnNuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoEventoMouseClicked
-        this.dispose();
-        NuevoEvento ventana = new NuevoEvento(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            NuevoEvento ventana = new NuevoEvento(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnNuevoEventoMouseClicked
 
     private void btnConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseClicked
@@ -165,9 +171,15 @@ public class Configuracion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultasMouseClicked
 
     private void btnCalificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalificarMouseClicked
-        this.dispose();
-        CountingStars ventana = new CountingStars(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            CountingStars ventana = new CountingStars(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCalificarMouseClicked
 
     /**

@@ -47,9 +47,10 @@ public class Reviews extends javax.swing.JPanel {
         });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblOwner.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         lblOwner.setForeground(new java.awt.Color(255, 255, 255));
         lblOwner.setText("Nombre del Evento");
-        jPanel1.add(lblOwner, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 270, -1));
+        jPanel1.add(lblOwner, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 270, -1));
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -64,14 +65,17 @@ public class Reviews extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 580, 100));
 
+        jLabel2.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Nombre:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
 
+        lblEventName1.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         lblEventName1.setForeground(new java.awt.Color(255, 255, 255));
         lblEventName1.setText("Estrellas");
-        jPanel1.add(lblEventName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, 270, -1));
+        jPanel1.add(lblEventName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 270, -1));
 
+        lblStars.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         lblStars.setForeground(new java.awt.Color(255, 255, 255));
         lblStars.setText("1");
         jPanel1.add(lblStars, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 30, -1));

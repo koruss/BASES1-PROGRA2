@@ -78,9 +78,10 @@ public class Event extends javax.swing.JPanel {
         });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblEventName.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         lblEventName.setForeground(new java.awt.Color(255, 255, 255));
         lblEventName.setText("Nombre del Evento");
-        jPanel1.add(lblEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 140, -1));
+        jPanel1.add(lblEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 510, -1));
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -95,6 +96,7 @@ public class Event extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 580, 80));
 
+        jLabel2.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Evento");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));

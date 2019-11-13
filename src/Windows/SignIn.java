@@ -155,7 +155,9 @@ public class SignIn extends javax.swing.JFrame {
         jScrollPane1.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
 
         txtArea.setEditable(false);
+        txtArea.setBackground(new java.awt.Color(255, 255, 255));
         txtArea.setColumns(20);
+        txtArea.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         txtArea.setForeground(new java.awt.Color(51, 51, 51));
         txtArea.setLineWrap(true);
         txtArea.setRows(5);
@@ -167,11 +169,12 @@ public class SignIn extends javax.swing.JFrame {
         txtArea.setSelectionColor(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(txtArea);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 140, 60));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 150, 60));
 
         jLabel4.setFont(new java.awt.Font("Magneto", 0, 36)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("E-Vent");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 150, 70));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 150, 70));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 600));
 

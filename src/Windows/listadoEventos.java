@@ -184,17 +184,22 @@ public class listadoEventos extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 1, 12)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Eventos ");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, 30));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, 30));
 
         jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Filtrar:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, 60, 20));
 
+        comboOpcion.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         comboOpcion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Anteriores", "Posteriores" }));
         jPanel1.add(comboOpcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 140, 40));
+
+        txtFecha.setBackground(new java.awt.Color(40, 40, 40));
+        txtFecha.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(txtFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, 40));
 
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Aceptar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,9 +229,15 @@ public class listadoEventos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEstadisticasMouseClicked
 
     private void btnNuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoEventoMouseClicked
-        this.dispose();
-        NuevoEvento ventana = new NuevoEvento(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            NuevoEvento ventana = new NuevoEvento(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(listadoEventos.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(listadoEventos.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnNuevoEventoMouseClicked
 
     private void btnConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseClicked
@@ -252,9 +263,15 @@ public class listadoEventos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultasMouseClicked
 
     private void btnCalificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalificarMouseClicked
-        this.dispose();
-        CountingStars ventana = new CountingStars(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            CountingStars ventana = new CountingStars(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ResenasXEvento.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ResenasXEvento.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCalificarMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

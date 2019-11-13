@@ -25,6 +25,7 @@ public class Invitaciones extends javax.swing.JFrame {
     public Invitaciones(Person person) throws SQLException, ClassNotFoundException {
         initComponents();
         setPerson(person);
+        cargarCategorias();
         cargarEventosInvitados();
                 if(person.getTypeUser()!=1){  //significa que  no es administrador
             this.btnNuevoEvento.setVisible(false);
@@ -35,6 +36,15 @@ public class Invitaciones extends javax.swing.JFrame {
     
     private Person person;
 
+    
+    public void cargarCategorias() throws SQLException, ClassNotFoundException{
+        this.comboCategoria.removeAllItems();
+        Funcion functions = new Funcion();
+        ResultSet rs =functions.classification_getClassification(-1);
+        while(rs.next()){
+            this.comboCategoria.addItem(rs.getString("CLASSIFICATION_NAME"));
+        }
+    }
     private Invitaciones() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -53,9 +63,10 @@ public class Invitaciones extends javax.swing.JFrame {
     private EventData eventData;
   
     public void cargarEventosInvitados() throws SQLException, ClassNotFoundException{
+     
         int contador=0;
         Funcion functions=new Funcion();
-        ResultSet rs=functions.User_Consults_a_PrivateEvent(getPerson().getCedula(),jComboBox3.getSelectedItem().toString());
+        ResultSet rs=functions.User_Consults_a_PrivateEvent(getPerson().getCedula(),comboCategoria.getSelectedItem().toString());
         while(rs.next()) {
            EventData eventData = new EventData(rs.getString("EVENT_NAME"),rs.getString("DESCRIPTION"),rs.getString("DATE"),Integer.parseInt(rs.getString("ID_EVENT")),Integer.parseInt(rs.getString("ID_CLASSIFICATION")),Integer.parseInt(rs.getString("ID_COMMUNITY")),rs.getString("PLACE"));
             setEventData(eventData);
@@ -85,7 +96,7 @@ public class Invitaciones extends javax.swing.JFrame {
         scroll = new javax.swing.JScrollPane();
         panelEventos = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        comboCategoria = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         btnEstadisticas = new javax.swing.JLabel();
         btnNuevoEvento = new javax.swing.JLabel();
@@ -110,15 +121,17 @@ public class Invitaciones extends javax.swing.JFrame {
 
         jPanel1.add(scroll, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 670, 390));
 
+        jLabel1.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Filtrar");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 70, 40));
 
-        jComboBox3.setBackground(new java.awt.Color(40, 40, 40));
-        jComboBox3.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
-        jComboBox3.setForeground(new java.awt.Color(255, 255, 255));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox3.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
-        jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 180, 40));
+        comboCategoria.setBackground(new java.awt.Color(40, 40, 40));
+        comboCategoria.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        comboCategoria.setForeground(new java.awt.Color(255, 255, 255));
+        comboCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboCategoria.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
+        jPanel1.add(comboCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 180, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 0, 670, 600));
 
@@ -192,9 +205,15 @@ public class Invitaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEstadisticasMouseClicked
 
     private void btnNuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoEventoMouseClicked
-        this.dispose();
-        NuevoEvento ventana = new NuevoEvento(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            NuevoEvento ventana = new NuevoEvento(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Invitaciones.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Invitaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnNuevoEventoMouseClicked
 
     private void btnConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseClicked
@@ -220,9 +239,15 @@ public class Invitaciones extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultasMouseClicked
 
     private void btnCalificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalificarMouseClicked
-        this.dispose();
-        CountingStars ventana = new CountingStars(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            CountingStars ventana = new CountingStars(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(Invitaciones.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Invitaciones.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCalificarMouseClicked
 
     /**
@@ -268,7 +293,7 @@ public class Invitaciones extends javax.swing.JFrame {
     private javax.swing.JLabel btnEstadisticas;
     private javax.swing.JLabel btnHome;
     private javax.swing.JLabel btnNuevoEvento;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JComboBox<String> comboCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

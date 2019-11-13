@@ -49,6 +49,7 @@ public class EventConsulta extends javax.swing.JPanel {
         });
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblHora.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         lblHora.setForeground(new java.awt.Color(255, 255, 255));
         lblHora.setText("Nombre del Evento");
         jPanel1.add(lblHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 140, -1));
@@ -66,10 +67,12 @@ public class EventConsulta extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 580, 80));
 
+        jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Evento");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
+        lblEventName.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         lblEventName.setForeground(new java.awt.Color(255, 255, 255));
         lblEventName.setText("Nombre del Evento");
         jPanel1.add(lblEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 380, -1));

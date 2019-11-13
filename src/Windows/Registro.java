@@ -8,6 +8,7 @@ package Windows;
 import Business.Funcion;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -25,8 +26,10 @@ public class Registro extends javax.swing.JFrame {
     /**
      * Creates new form Registro
      */
-    public Registro() {
+    public Registro() throws ClassNotFoundException, SQLException {
         initComponents();
+         cargarComboBox();
+
         ((JTextField)this.txtFechaNacimiento.getDateEditor()).setEditable(false);
         txtTelefono.addKeyListener(new KeyAdapter()
         {
@@ -45,6 +48,18 @@ public class Registro extends javax.swing.JFrame {
         });
         
         
+        
+        
+        
+    }
+    
+        public void cargarComboBox() throws SQLException, ClassNotFoundException{
+        comboTipoUsuario.removeAllItems();
+        Funcion functions=new Funcion();
+        ResultSet rs=functions.kindperson_getKindPerson(-1);
+        while(rs.next()){
+            comboTipoUsuario.addItem(rs.getString("DESCRIPTION"));
+        }
         
     }
 
@@ -103,6 +118,7 @@ public class Registro extends javax.swing.JFrame {
 
         txtName.setBackground(new java.awt.Color(40, 40, 40));
         txtName.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtName.setForeground(new java.awt.Color(255, 255, 255));
         txtName.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,6 +139,7 @@ public class Registro extends javax.swing.JFrame {
 
         txtApellido.setBackground(new java.awt.Color(40, 40, 40));
         txtApellido.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtApellido.setForeground(new java.awt.Color(255, 255, 255));
         txtApellido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         jPanel2.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 200, 180, 40));
 
@@ -134,6 +151,7 @@ public class Registro extends javax.swing.JFrame {
 
         txt2Apellido.setBackground(new java.awt.Color(40, 40, 40));
         txt2Apellido.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txt2Apellido.setForeground(new java.awt.Color(255, 255, 255));
         txt2Apellido.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txt2Apellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,11 +167,13 @@ public class Registro extends javax.swing.JFrame {
 
         txtCorreo.setBackground(new java.awt.Color(40, 40, 40));
         txtCorreo.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
         txtCorreo.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         jPanel2.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 180, 40));
 
         txtUser.setBackground(new java.awt.Color(40, 40, 40));
         txtUser.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtUser.setForeground(new java.awt.Color(255, 255, 255));
         txtUser.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         jPanel2.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 280, 180, 40));
 
@@ -169,6 +189,7 @@ public class Registro extends javax.swing.JFrame {
 
         txtTelefono.setBackground(new java.awt.Color(40, 40, 40));
         txtTelefono.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtTelefono.setForeground(new java.awt.Color(255, 255, 255));
         txtTelefono.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         jPanel2.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 360, 180, 40));
 
@@ -191,6 +212,7 @@ public class Registro extends javax.swing.JFrame {
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, -1, -1));
 
         txtPassw.setBackground(new java.awt.Color(40, 40, 40));
+        txtPassw.setForeground(new java.awt.Color(255, 255, 255));
         txtPassw.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtPassw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,11 +236,13 @@ public class Registro extends javax.swing.JFrame {
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 520, 110, 40));
 
         jLabel13.setFont(new java.awt.Font("Bookman Old Style", 0, 24)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Registro");
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 100, 50));
 
         txtCedula.setBackground(new java.awt.Color(40, 40, 40));
         txtCedula.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
+        txtCedula.setForeground(new java.awt.Color(255, 255, 255));
         txtCedula.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 2, 0, new java.awt.Color(255, 255, 255)));
         txtCedula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,7 +269,6 @@ public class Registro extends javax.swing.JFrame {
         comboTipoUsuario.setBackground(new java.awt.Color(40, 40, 40));
         comboTipoUsuario.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         comboTipoUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        comboTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboTipoUsuario.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 0, 0, new java.awt.Color(255, 255, 255)));
         jPanel2.add(comboTipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 180, 40));
 
@@ -288,6 +311,8 @@ public class Registro extends javax.swing.JFrame {
                 SignIn ventanita= new SignIn();
                 ventanita.setVisible(true);
             } catch (SQLException ex) {
+                ventana.showMessageDialog(null,"No se ha podido regisrar este nuevo usuario, la cédula y/o nombre de usuario ya se encuentra registrada en el sistema");
+                ventana.setVisible(true);
                 Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
@@ -348,7 +373,13 @@ public class Registro extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Registro().setVisible(true);
+                try {
+                    new Registro().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

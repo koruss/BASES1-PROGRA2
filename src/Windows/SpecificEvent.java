@@ -127,7 +127,7 @@ public class SpecificEvent extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Comentarios");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Bookman Old Style", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -248,9 +248,15 @@ public class SpecificEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEstadisticasMouseClicked
 
     private void btnNuevoEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoEventoMouseClicked
-        this.dispose();
-        NuevoEvento ventana = new NuevoEvento(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            NuevoEvento ventana = new NuevoEvento(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(SpecificEvent.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SpecificEvent.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnNuevoEventoMouseClicked
 
     private void btnConfigMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnConfigMouseClicked
@@ -276,9 +282,15 @@ public class SpecificEvent extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultasMouseClicked
 
     private void btnCalificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCalificarMouseClicked
-        this.dispose();
-        CountingStars ventana = new CountingStars(getPerson());
-        ventana.setVisible(true);
+        try {
+            this.dispose();
+            CountingStars ventana = new CountingStars(getPerson());
+            ventana.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(SpecificEvent.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(SpecificEvent.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnCalificarMouseClicked
 
     /**
